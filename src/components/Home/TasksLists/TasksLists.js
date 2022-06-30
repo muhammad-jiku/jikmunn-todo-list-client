@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import TasksListsRow from './TasksListsRow';
 
 const TasksLists = () => {
   const [tasksLists, setTasksLists] = useState([]);
@@ -12,8 +13,28 @@ const TasksLists = () => {
   }, []);
   return (
     <div className="container mx-auto">
-      tasks
-      {console.log(tasksLists)}
+      <div class="overflow-x-auto w-full">
+        <table class="table w-full">
+          {/* <head  */}
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Task Name</th>
+              <th>Task Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+            {tasksLists
+              ?.slice(0)
+              ?.reverse()
+              ?.map((tasks, idx) => (
+                <TasksListsRow key={tasks?._id} tasks={tasks} idx={idx} />
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
