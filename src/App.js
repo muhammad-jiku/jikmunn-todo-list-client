@@ -7,6 +7,7 @@ import Home from './components/Home/Home/Home';
 import Footer from './components/Shared/Footer/Footer';
 import Header from './components/Shared/Header/Header';
 import ToDo from './components/ToDo/ToDo';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/todo" element={<ToDo />} />
         <Route path="/calendar" element={<Calendar />} />
       </Routes>
+      <ToastContainer />
       <Footer />
     </div>
   );
