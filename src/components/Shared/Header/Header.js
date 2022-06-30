@@ -1,13 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const menuItems = (
     <>
       <li>
-        <p>Item 1</p>
+        <Link to="/completed-tasks">Completed Tasks</Link>
       </li>
       <li>
-        <p>Item 3</p>
+        <Link to="/todo">To-Do</Link>
+      </li>
+      <li>
+        <Link to="/calendar">Calendar</Link>
       </li>
     </>
   );
@@ -38,9 +42,9 @@ const Header = () => {
             {menuItems}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl" href="h">
-          daisyUI
-        </a>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          To-Do Lists
+        </Link>
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
