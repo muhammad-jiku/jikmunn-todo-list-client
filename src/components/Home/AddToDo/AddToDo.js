@@ -24,6 +24,26 @@ const AddToDo = () => {
     const taskName = watch('taskName').toUpperCase();
     const taskDate = watch('taskDate');
     console.log(taskName, taskDate);
+
+    const taskList = {
+      taskName: taskName,
+      // user: email,
+      // userName: displayName,
+      taskDate: taskDate,
+    };
+
+    fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(taskList),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success(`You added ${taskName} to your to-do list successfully!`);
+      });
   };
 
   return (
