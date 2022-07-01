@@ -36,13 +36,13 @@ const CompletedTasksRow = ({
             <label>
               <input
                 type="checkbox"
-                class="checkbox"
+                className="checkbox"
                 onClick={handleComplete}
               />
             </label>
           )} */}
         {isCompleted === true && (
-          <button class="btn btn-xs btn-circle" onClick={handleIsComplete}>
+          <button className="btn btn-xs btn-circle" onClick={handleIsComplete}>
             <TiTick className="text-lg md:text-2xl" />
           </button>
         )}
@@ -52,14 +52,14 @@ const CompletedTasksRow = ({
       <th>
         <label
           htmlFor="update-complete-task-modal"
-          class="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
+          className="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
           onClick={() => setUpdateCompleteTask(tasks)}
         >
           <MdEdit className="text-lg md:text-2xl" />
         </label>
         <label
           htmlFor="confirm-modal"
-          class="btn  btn-circle  btn-error text-white"
+          className="btn  btn-circle  btn-error text-white"
           onClick={() => {
             console.log(tasks);
             setConfirmDelete(tasks);

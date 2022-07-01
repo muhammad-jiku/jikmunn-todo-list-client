@@ -48,11 +48,15 @@ const TasksListsRow = ({ tasks, refetch }) => {
       <th>
         {(isCompleted === false || !isCompleted) && (
           <label>
-            <input type="checkbox" class="checkbox" onClick={handleComplete} />
+            <input
+              type="checkbox"
+              className="checkbox"
+              onClick={handleComplete}
+            />
           </label>
         )}
         {/* {isCompleted === true && (
-          <button class="btn btn-xs btn-circle" onClick={handleIsComplete}>
+          <button className="btn btn-xs btn-circle" onClick={handleIsComplete}>
             <TiTick className="text-lg md:text-2xl" />
           </button>
         )} */}
@@ -60,10 +64,10 @@ const TasksListsRow = ({ tasks, refetch }) => {
       <td>{taskName}</td>
       <td>{taskDate}</td>
       {/* <th>
-        <button class="btn  btn-circle bg-green-500 text-white mr-6">
+        <button className="btn  btn-circle bg-green-500 text-white mr-6">
           <MdEdit className="text-lg md:text-2xl" />
         </button>
-        <button class="btn  btn-circle bg-red-500 text-white">
+        <button className="btn  btn-circle bg-red-500 text-white">
           <RiDeleteBin7Fill className="text-lg md:text-2xl" />
         </button>
       </th> */}

@@ -1,16 +1,14 @@
 import React from 'react';
-import { BsPlusLg } from 'react-icons/bs';
-import AddToDo from '../AddToDo/AddToDo';
 import { useQuery } from 'react-query';
-import TasksListsRow from '../TasksLists/TasksListsRow';
+import DateTasksRow from './DateTasksRow';
 
-const Home = () => {
+const DateTodoTasks = ({ formattedDate }) => {
   const {
-    data: tasksLists,
+    data: todoLists,
     isLoading,
     refetch,
-  } = useQuery('tasksLists', () =>
-    fetch(`http://localhost:5000/tasks`, {
+  } = useQuery(['todoLists', formattedDate], () =>
+    fetch(`http://localhost:5000/tasks/lists?date=${formattedDate}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -22,21 +20,12 @@ const Home = () => {
   if (isLoading) return;
 
   return (
-    <div>
-      <div className="container mx-auto p-4 flex justify-between">
-        <h1>To-do lists</h1>
-        <label
-          className="btn btn-ghost modal-button cursor-pointer"
-          htmlFor="add-task-modal"
-        >
-          {/* <button
-          className="btn btn-ghost modal-button cursor-pointer"
-          htmlFor="add-task-modal"
-        > */}{' '}
-          <BsPlusLg className="mr-4" /> Add to-do {/* </button> */}
-        </label>
-      </div>
-      <div className="container mx-auto">
+    <div className="container mx-auto">
+      {todoLists?.length === 0 ? (
+        <h1 className="text-lg text-red-500  text-center">
+          {formattedDate} has no todo lists
+        </h1>
+      ) : (
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             {/* <head  */}
@@ -44,29 +33,28 @@ const Home = () => {
               <tr>
                 <th className="text-lg font-bold">#</th>
                 <th className="text-lg font-bold">Task Name</th>
-                <th className="text-lg font-bold">Task Date</th>
+                <th className="text-lg font-bold">Task Details</th>
                 {/* <th className="text-lg font-bold">Actions</th> */}
               </tr>
             </thead>
             <tbody>
-              {tasksLists
+              {todoLists
                 ?.slice(0)
                 ?.reverse()
                 ?.map((tasks, idx) => (
-                  <TasksListsRow
-                    key={tasks?._id}
+                  <DateTasksRow
+                    key={idx}
                     tasks={tasks}
-                    idx={idx}
                     refetch={refetch}
+                    formattedDate={formattedDate}
                   />
                 ))}
             </tbody>
           </table>
         </div>
-      </div>
-      <AddToDo refetch={refetch} />
+      )}
     </div>
   );
 };
 
-export default Home;
+export default DateTodoTasks;

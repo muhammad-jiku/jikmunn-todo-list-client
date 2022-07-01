@@ -29,11 +29,15 @@ const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
       <th>
         {(isCompleted === false || !isCompleted) && (
           <label>
-            <input type="checkbox" class="checkbox" onClick={handleComplete} />
+            <input
+              type="checkbox"
+              className="checkbox"
+              onClick={handleComplete}
+            />
           </label>
         )}
         {/* {isCompleted === true && (
-          <button class="btn btn-xs btn-circle" onClick={handleIsComplete}>
+          <button className="btn btn-xs btn-circle" onClick={handleIsComplete}>
             <TiTick className="text-lg md:text-2xl" />
           </button>
         )} */}
@@ -43,14 +47,14 @@ const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
       <th>
         <label
           htmlFor="update-todo-task-modal"
-          class="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
+          className="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
           onClick={() => setUpdateToDoTask(tasks)}
         >
           <MdEdit className="text-lg md:text-2xl" />
         </label>
         <label
           htmlFor="confirm-modal"
-          class="btn  btn-circle  btn-error text-white"
+          className="btn  btn-circle  btn-error text-white"
           onClick={() => {
             console.log(tasks);
             setConfirmDelete(tasks);
