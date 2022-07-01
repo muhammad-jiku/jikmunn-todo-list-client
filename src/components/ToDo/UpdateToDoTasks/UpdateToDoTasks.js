@@ -88,7 +88,7 @@ const UpdateToDoTasks = ({ refetch, updateToDoTask, setUpdateToDoTask }) => {
               </label> */}
               <input
                 type="text"
-                placeholder="Add task name"
+                placeholder="Update task name"
                 defaultValue={taskName}
                 //   value={user?.displayName}
                 className="input input-bordered input-primary"
@@ -130,10 +130,9 @@ const UpdateToDoTasks = ({ refetch, updateToDoTask, setUpdateToDoTask }) => {
               </label> */}
               <input
                 type="text"
-                // placeholder="Date "
-                // defaultValue={formattedDate}
                 placeholder={taskDate}
-                // value={formattedDate}
+                value={formattedDate || ' '}
+                defaultValue={taskDate || ' '}
                 className="input input-bordered input-primary"
                 {...register('taskDate', {
                   required: {

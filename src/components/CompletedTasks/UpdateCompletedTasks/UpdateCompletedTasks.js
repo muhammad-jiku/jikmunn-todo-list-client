@@ -134,10 +134,9 @@ const UpdateCompletedTasks = ({
               </label> */}
               <input
                 type="text"
-                // placeholder="Date "
-                // defaultValue={formattedDate}
                 placeholder={taskDate}
-                // value={formattedDate}
+                value={formattedDate || ' '}
+                defaultValue={taskDate || ' '}
                 className="input input-bordered input-primary"
                 {...register('taskDate', {
                   required: {

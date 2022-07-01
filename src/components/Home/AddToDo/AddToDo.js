@@ -74,7 +74,7 @@ const AddToDo = ({ refetch }) => {
               onDayClick={setDate} // is used for preventing 'date-fns' error of RangeError: Invalid time value
             />
           </div>
-
+          {console.log(date, setDate, formattedDate)}
           <form
             onSubmit={handleSubmit(onSubmit)}
             //   style={{ backgroundColor: '#FFFFFF', color: 'black' }}
@@ -128,8 +128,8 @@ const AddToDo = ({ refetch }) => {
               <input
                 type="text"
                 placeholder={formattedDate}
-                // defaultValue={user?.displayName}
-                // value={formattedDate}
+                // defaultValue={formattedDate || ''}
+                value={formattedDate || ''}
                 className="input input-bordered input-primary"
                 {...register('taskDate', {
                   required: {
