@@ -39,7 +39,7 @@ const TasksLists = () => {
               <th className="text-lg font-bold">#</th>
               <th className="text-lg font-bold">Task Name</th>
               <th className="text-lg font-bold">Task Date</th>
-              <th className="text-lg font-bold">Actions</th>
+              {/* <th className="text-lg font-bold">Actions</th> */}
             </tr>
           </thead>
           <tbody>

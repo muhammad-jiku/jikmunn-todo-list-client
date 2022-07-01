@@ -22,6 +22,7 @@ const CompletedTasks = () => {
   return (
     <div>
       <div className="container mx-auto">
+        <h1 className="text-lg py-4">Your's completed tasks</h1>
         <div class="overflow-x-auto w-full">
           <table class="table w-full">
             {/* <head  */}
