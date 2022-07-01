@@ -4,7 +4,7 @@ import { DayPicker } from 'react-day-picker';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-const AddToDo = () => {
+const AddToDo = ({ refetch }) => {
   const [date, setDate] = useState(new Date());
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
   // const formattedDate = date && format(date, 'PP');
@@ -15,7 +15,7 @@ const AddToDo = () => {
     formState: { errors },
     handleSubmit,
     watch,
-    // getValues,
+    reset,
   } = useForm();
 
   const onSubmit = (data, e) => {
@@ -44,6 +44,8 @@ const AddToDo = () => {
       .then((data) => {
         console.log(data);
         toast.success(`You added ${taskName} to your to-do list successfully!`);
+        refetch();
+        reset();
       });
   };
 
