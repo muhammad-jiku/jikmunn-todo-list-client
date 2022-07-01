@@ -23,7 +23,7 @@ const DateTodoTasks = ({ formattedDate }) => {
     <div className="container mx-auto">
       {todoLists?.length === 0 ? (
         <h1 className="text-lg text-red-500  text-center">
-          {formattedDate} has no todo lists
+          No todo lists has found on {formattedDate}
         </h1>
       ) : (
         <div className="overflow-x-auto w-full">

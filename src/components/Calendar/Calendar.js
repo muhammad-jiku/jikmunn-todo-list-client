@@ -8,13 +8,13 @@ import DateCompletedTasks from './CalendarTasks/DateCompletedTasks';
 
 const Calendar = () => {
   const [date, setDate] = useState(new Date());
-  const [selectedTaskType, setSelectedTaskType] = useState(false);
+  const [selectedTaskType, setSelectedTaskType] = useState('');
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
   // const formattedDate = date && format(date, 'PP');
   const formattedDate = format(date, 'PP');
 
   return (
-    <div>
+    <div className="container mx-auto py-6">
       <DayPicker
         mode="single"
         selected={date}
@@ -22,8 +22,24 @@ const Calendar = () => {
         onDayClick={setDate} // is used for preventing 'date-fns' error of RangeError: Invalid time value
       />
 
-      <DateTodoTasks formattedDate={formattedDate} />
-      {/* <DateCompletedTasks formattedDate={formattedDate} /> */}
+      <select
+        id="types"
+        value={selectedTaskType}
+        className="select select-bordered w-full max-w-xs"
+        onChange={(e) => setSelectedTaskType(e.target.value)}
+      >
+        <option value="Todo">Todo</option>
+        <option value="Completed Todo">Completed Todo</option>
+      </select>
+
+      <div className="my-6">
+        {selectedTaskType === 'Todo' && (
+          <DateTodoTasks formattedDate={formattedDate} />
+        )}
+        {selectedTaskType === 'Completed Todo' && (
+          <DateCompletedTasks formattedDate={formattedDate} />
+        )}
+      </div>
     </div>
   );
 };
