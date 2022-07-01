@@ -1,5 +1,7 @@
 import React from 'react';
 import { TiTick } from 'react-icons/ti';
+import { MdEdit } from 'react-icons/md';
+import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 const TasksListsRow = ({ tasks }) => {
@@ -46,15 +48,11 @@ const TasksListsRow = ({ tasks }) => {
       <th>
         {(isCompleted === false || !isCompleted) && (
           <label>
-            <input
-              type="checkbox"
-              class="checkbox h-12 w-12"
-              onClick={handleComplete}
-            />
+            <input type="checkbox" class="checkbox" onClick={handleComplete} />
           </label>
         )}
         {isCompleted === true && (
-          <button class="btn btn-circle h-12 w-12" onClick={handleIsComplete}>
+          <button class="btn btn-xs btn-circle" onClick={handleIsComplete}>
             <TiTick className="text-lg md:text-2xl" />
           </button>
         )}
@@ -62,8 +60,12 @@ const TasksListsRow = ({ tasks }) => {
       <td>{taskName}</td>
       <td>{taskDate}</td>
       <th>
-        <button class="btn btn-ghost btn-xs">Update</button>
-        <button class="btn btn-ghost btn-xs">Delete</button>
+        <button class="btn  btn-circle bg-green-500 text-white mr-6">
+          <MdEdit className="text-lg md:text-2xl" />
+        </button>
+        <button class="btn  btn-circle bg-red-500 text-white">
+          <RiDeleteBin7Fill className="text-lg md:text-2xl" />
+        </button>
       </th>
     </tr>
   );
