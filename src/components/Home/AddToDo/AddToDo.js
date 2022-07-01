@@ -30,6 +30,7 @@ const AddToDo = () => {
       // user: email,
       // userName: displayName,
       taskDate: taskDate,
+      isCompleted: false,
     };
 
     fetch('http://localhost:5000/tasks', {

@@ -1,14 +1,13 @@
 import React from 'react';
-// import { TiTick } from 'react-icons/ti';
+import { TiTick } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const TasksListsRow = ({ tasks, refetch }) => {
-  console.log(tasks);
+const CompletedTasksRow = ({ tasks, refetch }) => {
   const { _id, isCompleted, taskName, taskDate } = tasks;
-  const handleComplete = () => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+  const handleIsComplete = () => {
+    fetch(`http://localhost:5000/completedTasks/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -19,43 +18,29 @@ const TasksListsRow = ({ tasks, refetch }) => {
         // console.log(data);
         if (data?.modifiedCount > 0) {
           refetch();
-          toast.success(`You completed ${taskName} successfully!`);
+          toast.success(`You just rembered ${taskName} is not completed yet!!`);
         }
       })
       .catch((err) => console.log(err));
   };
 
-  // const handleIsComplete = () => {
-  //   fetch(`http://localhost:5000/completedTasks/${_id}`, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // console.log(data);
-  //       if (data?.modifiedCount > 0) {
-  //         refetch();
-  //         toast.success(`You just rembered ${taskName} is not completed yet!!`);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   return (
     <tr>
       <th>
-        {(isCompleted === false || !isCompleted) && (
-          <label>
-            <input type="checkbox" class="checkbox" onClick={handleComplete} />
-          </label>
-        )}
-        {/* {isCompleted === true && (
+        {/* {(isCompleted === false || !isCompleted) && (
+            <label>
+              <input
+                type="checkbox"
+                class="checkbox"
+                onClick={handleComplete}
+              />
+            </label>
+          )} */}
+        {isCompleted === true && (
           <button class="btn btn-xs btn-circle" onClick={handleIsComplete}>
             <TiTick className="text-lg md:text-2xl" />
           </button>
-        )} */}
+        )}
       </th>
       <td>{taskName}</td>
       <td>{taskDate}</td>
@@ -71,4 +56,4 @@ const TasksListsRow = ({ tasks, refetch }) => {
   );
 };
 
-export default TasksListsRow;
+export default CompletedTasksRow;
