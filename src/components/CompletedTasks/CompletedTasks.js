@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import CompletedTasksRow from './CompletedTasksRow';
+import UpdateCompletedTasks from './UpdateCompletedTasks/UpdateCompletedTasks';
 // import DeleteCompletedTasks from './DeleteCompletedTasks/DeleteCompletedTasks';
 
 const CompletedTasks = () => {
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [updateCompleteTask, setUpdateCompleteTask] = useState(null);
 
   const {
     data: completedTasks,
@@ -47,6 +49,7 @@ const CompletedTasks = () => {
                   <CompletedTasksRow
                     key={tasks?._id}
                     tasks={tasks}
+                    setUpdateCompleteTask={setUpdateCompleteTask}
                     setConfirmDelete={setConfirmDelete}
                     refetch={refetch}
                   />
@@ -54,6 +57,13 @@ const CompletedTasks = () => {
             </tbody>
           </table>
         </div>
+        {updateCompleteTask && (
+          <UpdateCompletedTasks
+            refetch={refetch}
+            updateCompleteTask={updateCompleteTask}
+            setUpdateCompleteTask={setUpdateCompleteTask}
+          />
+        )}{' '}
         {confirmDelete && (
           <DeleteTasks
             refetch={refetch}

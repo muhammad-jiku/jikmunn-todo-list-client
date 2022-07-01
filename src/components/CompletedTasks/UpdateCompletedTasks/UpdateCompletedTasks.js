@@ -1,10 +1,16 @@
-import { format } from 'date-fns';
 import React, { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { format } from 'date-fns';
 
-const AddToDo = () => {
+const UpdateCompletedTasks = ({
+  refetch,
+  updateCompleteTask,
+  setUpdateCompleteTask,
+}) => {
+  const { _id, taskName, taskDate } = updateCompleteTask;
+
   const [date, setDate] = useState(new Date());
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
   // const formattedDate = date && format(date, 'PP');
@@ -25,40 +31,44 @@ const AddToDo = () => {
     const taskDate = watch('taskDate');
     console.log(taskName, taskDate);
 
-    const taskList = {
+    const updateTaskList = {
       taskName: taskName,
       // user: email,
       // userName: displayName,
       taskDate: taskDate,
-      isCompleted: false,
+      // isCompleted: false,
     };
 
-    fetch('http://localhost:5000/tasks', {
-      method: 'POST',
+    fetch(`http://localhost:5000/tasks/${_id}`, {
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify(taskList),
+      body: JSON.stringify(updateTaskList),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        toast.success(`You added ${taskName} to your to-do list successfully!`);
+        toast.success(
+          `You updated ${taskName} to your to-do list successfully!`
+        );
+        setUpdateCompleteTask(null);
+        refetch();
       });
   };
 
   return (
     <div>
-      {/* <label htmlFor="add-task-modal" className="btn modal-button">
-        open modal
-      </label> */}
-
-      <input type="checkbox" id="add-task-modal" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="update-complete-task-modal"
+        className="modal-toggle"
+      />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box relative">
           <label
             label
-            htmlFor="add-task-modal"
+            htmlFor="update-complete-task-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
@@ -84,7 +94,7 @@ const AddToDo = () => {
               <input
                 type="text"
                 placeholder="Add task name"
-                // defaultValue={user?.displayName}
+                defaultValue={taskName}
                 //   value={user?.displayName}
                 className="input input-bordered input-primary"
                 {...register('taskName', {
@@ -125,8 +135,9 @@ const AddToDo = () => {
               </label> */}
               <input
                 type="text"
-                placeholder={formattedDate}
-                // defaultValue={user?.displayName}
+                // placeholder="Date "
+                // defaultValue={formattedDate}
+                placeholder={taskDate}
                 // value={formattedDate}
                 className="input input-bordered input-primary"
                 {...register('taskDate', {
@@ -135,7 +146,6 @@ const AddToDo = () => {
                     message: 'Please select the date',
                   },
                 })}
-                //   readOnly
                 required
                 // disabled
                 //   style={{ backgroundColor: '#FFFFFF', color: 'black' }}
@@ -152,7 +162,7 @@ const AddToDo = () => {
               <input
                 type="submit"
                 className="btn btn-primary text-white uppercase"
-                value="Add task"
+                value="Update task"
                 disabled={errors?.taskName}
               />{' '}
             </div>
@@ -167,7 +177,7 @@ const AddToDo = () => {
           </form>
 
           {/* <div className="modal-action">
-            <label htmlFor="add-task-modal" className="btn">
+            <label htmlFor="update-complete-task-modal" className="btn">
               Yay!
             </label>
           </div> */}
@@ -177,4 +187,4 @@ const AddToDo = () => {
   );
 };
 
-export default AddToDo;
+export default UpdateCompletedTasks;

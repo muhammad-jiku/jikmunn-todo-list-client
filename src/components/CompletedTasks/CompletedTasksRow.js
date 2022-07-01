@@ -4,7 +4,12 @@ import { MdEdit } from 'react-icons/md';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const CompletedTasksRow = ({ tasks, setConfirmDelete, refetch }) => {
+const CompletedTasksRow = ({
+  tasks,
+  setUpdateCompleteTask,
+  setConfirmDelete,
+  refetch,
+}) => {
   const { _id, isCompleted, taskName, taskDate } = tasks;
   const handleIsComplete = () => {
     fetch(`http://localhost:5000/completedTasks/${_id}`, {
@@ -45,9 +50,13 @@ const CompletedTasksRow = ({ tasks, setConfirmDelete, refetch }) => {
       <td>{taskName}</td>
       <td>{taskDate}</td>
       <th>
-        <button class="btn  btn-circle bg-green-500 text-white mr-6">
+        <label
+          htmlFor="update-complete-task-modal"
+          class="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
+          onClick={() => setUpdateCompleteTask(tasks)}
+        >
           <MdEdit className="text-lg md:text-2xl" />
-        </button>
+        </label>
         <label
           htmlFor="confirm-modal"
           class="btn  btn-circle  btn-error text-white"
