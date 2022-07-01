@@ -3,12 +3,12 @@ import { MdEdit } from 'react-icons/md';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const ToDoRow = ({ tasks, setConfirmDelete, refetch }) => {
+const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
   const handleComplete = () => {
     fetch(`http://localhost:5000/tasks/${_id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json',
       },
@@ -41,9 +41,13 @@ const ToDoRow = ({ tasks, setConfirmDelete, refetch }) => {
       <td>{taskName}</td>
       <td>{taskDate}</td>
       <th>
-        <button class="btn  btn-circle bg-green-500 text-white mr-6">
+        <label
+          htmlFor="update-todo-task-modal"
+          class="btn  btn-circle bg-green-500 hover:bg-green-300 text-white mr-6"
+          onClick={() => setUpdateToDoTask(tasks)}
+        >
           <MdEdit className="text-lg md:text-2xl" />
-        </button>
+        </label>
         <label
           htmlFor="confirm-modal"
           class="btn  btn-circle  btn-error text-white"

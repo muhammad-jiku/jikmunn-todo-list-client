@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import ToDoRow from './ToDoRow';
+import UpdateToDoTasks from './UpdateToDoTasks/UpdateToDoTasks';
 
 const ToDo = () => {
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [updateToDoTask, setUpdateToDoTask] = useState(null);
 
   const {
     data: tasksLists,
@@ -45,6 +47,7 @@ const ToDo = () => {
                 <ToDoRow
                   key={tasks?._id}
                   tasks={tasks}
+                  setUpdateToDoTask={setUpdateToDoTask}
                   setConfirmDelete={setConfirmDelete}
                   refetch={refetch}
                 />
@@ -52,6 +55,13 @@ const ToDo = () => {
           </tbody>
         </table>
       </div>
+      {updateToDoTask && (
+        <UpdateToDoTasks
+          refetch={refetch}
+          updateToDoTask={updateToDoTask}
+          setUpdateToDoTask={setUpdateToDoTask}
+        />
+      )}{' '}
       {confirmDelete && (
         <DeleteTasks
           refetch={refetch}

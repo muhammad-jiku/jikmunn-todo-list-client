@@ -4,12 +4,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 
-const UpdateCompletedTasks = ({
-  refetch,
-  updateCompleteTask,
-  setUpdateCompleteTask,
-}) => {
-  const { _id, taskName, taskDate } = updateCompleteTask;
+const UpdateToDoTasks = ({ refetch, updateToDoTask, setUpdateToDoTask }) => {
+  const { _id, taskName, taskDate } = updateToDoTask;
 
   const [date, setDate] = useState(new Date());
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
@@ -39,7 +35,7 @@ const UpdateCompletedTasks = ({
       // isCompleted: false,
     };
 
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`http://localhost:5000/completedTasks/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -52,7 +48,7 @@ const UpdateCompletedTasks = ({
         toast.success(
           `You updated ${taskName} of your to-do list successfully!`
         );
-        setUpdateCompleteTask(null);
+        setUpdateToDoTask(null);
         refetch();
       });
   };
@@ -61,13 +57,13 @@ const UpdateCompletedTasks = ({
     <div>
       <input
         type="checkbox"
-        id="update-complete-task-modal"
+        id="update-todo-task-modal"
         className="modal-toggle"
       />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box relative">
           <label
-            htmlFor="update-complete-task-modal"
+            htmlFor="update-todo-task-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
@@ -176,7 +172,7 @@ const UpdateCompletedTasks = ({
           </form>
 
           {/* <div className="modal-action">
-            <label htmlFor="update-complete-task-modal" className="btn">
+            <label htmlFor="update-todo-task-modal" className="btn">
               Yay!
             </label>
           </div> */}
@@ -186,4 +182,4 @@ const UpdateCompletedTasks = ({
   );
 };
 
-export default UpdateCompletedTasks;
+export default UpdateToDoTasks;

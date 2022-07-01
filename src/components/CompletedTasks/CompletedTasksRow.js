@@ -13,7 +13,7 @@ const CompletedTasksRow = ({
   const { _id, isCompleted, taskName, taskDate } = tasks;
   const handleIsComplete = () => {
     fetch(`http://localhost:5000/completedTasks/${_id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json',
       },
