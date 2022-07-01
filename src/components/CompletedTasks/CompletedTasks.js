@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import CompletedTasksRow from './CompletedTasksRow';
+// import DeleteCompletedTasks from './DeleteCompletedTasks/DeleteCompletedTasks';
 
 const CompletedTasks = () => {
+  const [confirmDelete, setConfirmDelete] = useState(null);
+
   const {
     data: completedTasks,
     isLoading,
@@ -39,17 +43,24 @@ const CompletedTasks = () => {
               {completedTasks
                 ?.slice(0)
                 ?.reverse()
-                ?.map((tasks, idx) => (
+                ?.map((tasks) => (
                   <CompletedTasksRow
                     key={tasks?._id}
                     tasks={tasks}
-                    idx={idx}
+                    setConfirmDelete={setConfirmDelete}
                     refetch={refetch}
                   />
                 ))}
             </tbody>
           </table>
         </div>
+        {confirmDelete && (
+          <DeleteTasks
+            refetch={refetch}
+            confirmDelete={confirmDelete}
+            setConfirmDelete={setConfirmDelete}
+          />
+        )}
       </div>
     </div>
   );

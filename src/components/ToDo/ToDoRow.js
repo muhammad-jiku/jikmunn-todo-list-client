@@ -3,7 +3,7 @@ import { MdEdit } from 'react-icons/md';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const ToDoRow = ({ tasks, refetch }) => {
+const ToDoRow = ({ tasks, setConfirmDelete, refetch }) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
   const handleComplete = () => {
@@ -44,9 +44,16 @@ const ToDoRow = ({ tasks, refetch }) => {
         <button class="btn  btn-circle bg-green-500 text-white mr-6">
           <MdEdit className="text-lg md:text-2xl" />
         </button>
-        <button class="btn  btn-circle bg-red-500 text-white">
+        <label
+          htmlFor="confirm-modal"
+          class="btn  btn-circle  btn-error text-white"
+          onClick={() => {
+            console.log(tasks);
+            setConfirmDelete(tasks);
+          }}
+        >
           <RiDeleteBin7Fill className="text-lg md:text-2xl" />
-        </button>
+        </label>
       </th>
     </tr>
   );

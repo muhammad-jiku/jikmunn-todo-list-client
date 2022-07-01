@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import ToDoRow from './ToDoRow';
 
 const ToDo = () => {
+  const [confirmDelete, setConfirmDelete] = useState(null);
+
   const {
     data: tasksLists,
     isLoading,
@@ -38,17 +41,24 @@ const ToDo = () => {
             {tasksLists
               ?.slice(0)
               ?.reverse()
-              ?.map((tasks, idx) => (
+              ?.map((tasks) => (
                 <ToDoRow
                   key={tasks?._id}
                   tasks={tasks}
-                  idx={idx}
+                  setConfirmDelete={setConfirmDelete}
                   refetch={refetch}
                 />
               ))}
           </tbody>
         </table>
       </div>
+      {confirmDelete && (
+        <DeleteTasks
+          refetch={refetch}
+          confirmDelete={confirmDelete}
+          setConfirmDelete={setConfirmDelete}
+        />
+      )}
     </div>
   );
 };
