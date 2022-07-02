@@ -3,13 +3,19 @@ import { MdEdit } from 'react-icons/md';
 import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
+const ToDoRow = ({
+  tasks,
+  setUpdateToDoTask,
+  setConfirmDelete,
+  refetch,
+  user,
+}) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
 
   const updateTaskList = {
     taskName: taskName,
-    // user: email,
+    user: user?.email,
     // userName: displayName,
     taskDate: taskDate,
     // isCompleted: false,

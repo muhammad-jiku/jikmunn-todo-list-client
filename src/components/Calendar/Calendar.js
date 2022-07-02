@@ -5,12 +5,16 @@ import { format } from 'date-fns';
 import 'react-day-picker/dist/style.css';
 import DateTodoTasks from './CalendarTasks/DateTodoTasks';
 import DateCompletedTasks from './CalendarTasks/DateCompletedTasks';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Calendar = () => {
   const [date, setDate] = useState(new Date());
   const [selectedTaskType, setSelectedTaskType] = useState('Todo');
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
   // const formattedDate = date && format(date, 'PP');
+const [user] = useAuthState(auth);
+
   const formattedDate = format(date, 'PP');
 
   return (
@@ -34,10 +38,10 @@ const Calendar = () => {
 
       <div className="my-6">
         {selectedTaskType === 'Todo' && (
-          <DateTodoTasks formattedDate={formattedDate} />
+          <DateTodoTasks formattedDate={formattedDate} user={user} />
         )}
         {selectedTaskType === 'Completed Todo' && (
-          <DateCompletedTasks formattedDate={formattedDate} />
+          <DateCompletedTasks formattedDate={formattedDate} user={user} />
         )}
       </div>
     </div>

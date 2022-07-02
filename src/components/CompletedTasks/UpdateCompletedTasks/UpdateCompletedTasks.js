@@ -8,6 +8,7 @@ const UpdateCompletedTasks = ({
   refetch,
   updateCompleteTask,
   setUpdateCompleteTask,
+  user,
 }) => {
   const { _id, taskName, taskDate } = updateCompleteTask;
 
@@ -33,7 +34,7 @@ const UpdateCompletedTasks = ({
 
     const updateTaskList = {
       taskName: taskName,
-      // user: email,
+      user: user?.email,
       // userName: displayName,
       taskDate: taskDate,
       // isCompleted: false,

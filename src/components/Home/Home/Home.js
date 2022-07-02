@@ -3,14 +3,18 @@ import { BsPlusLg } from 'react-icons/bs';
 import AddToDo from '../AddToDo/AddToDo';
 import { useQuery } from 'react-query';
 import TasksListsRow from '../TasksLists/TasksListsRow';
+import auth from '../../../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Home = () => {
+  const [user] = useAuthState(auth);
+
   const {
     data: tasksLists,
     isLoading,
     refetch,
-  } = useQuery('tasksLists', () =>
-    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks`, {
+  } = useQuery(['tasksLists', user], () =>
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks?user=${user?.email}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -24,7 +28,7 @@ const Home = () => {
   return (
     <div>
       <div className="container mx-auto p-4 flex justify-between">
-        <h1>To-do lists</h1>
+        <h1>{user?.displayName ? user?.displayName + "'s" : "  "} to-do lists</h1>
         <label
           className="btn btn-ghost modal-button cursor-pointer"
           htmlFor="add-task-modal"
@@ -58,13 +62,14 @@ const Home = () => {
                     tasks={tasks}
                     idx={idx}
                     refetch={refetch}
+                    user={user}
                   />
                 ))}
             </tbody>
           </table>
         </div>
       </div>
-      <AddToDo refetch={refetch} />
+      <AddToDo refetch={refetch} user={user} />
     </div>
   );
 };

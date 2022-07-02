@@ -4,13 +4,13 @@ import React from 'react';
 // import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-const TasksListsRow = ({ tasks, refetch }) => {
+const TasksListsRow = ({ tasks, refetch, user }) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
 
   const updateTaskList = {
     taskName: taskName,
-    // user: email,
+    user: user?.email,
     // userName: displayName,
     taskDate: taskDate,
     // isCompleted: false,

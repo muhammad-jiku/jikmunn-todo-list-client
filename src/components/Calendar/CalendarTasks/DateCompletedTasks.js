@@ -2,14 +2,14 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import DateTasksRow from './DateTasksRow';
 
-const DateCompletedTasks = ({ formattedDate }) => {
+const DateCompletedTasks = ({ formattedDate, user }) => {
   const {
     data: completedTodoLists,
     isLoading,
     refetch,
-  } = useQuery(['completedTodoLists', formattedDate], () =>
+  } = useQuery(['completedTodoLists', formattedDate, user], () =>
     fetch(
-      `https://jikmunn-todo-app.herokuapp.com/completedTasks/lists?date=${formattedDate}`,
+      `https://jikmunn-todo-app.herokuapp.com/completedTasks/lists?date=${formattedDate}&user=${user?.email}`,
       {
         method: 'GET',
         headers: {
@@ -49,6 +49,7 @@ const DateCompletedTasks = ({ formattedDate }) => {
                     tasks={tasks}
                     refetch={refetch}
                     formattedDate={formattedDate}
+                    user={user}
                   />
                 ))}
             </tbody>

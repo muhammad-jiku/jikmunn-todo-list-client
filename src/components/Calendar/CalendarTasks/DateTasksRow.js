@@ -2,13 +2,13 @@ import React from 'react';
 import { TiTick } from 'react-icons/ti';
 import { toast } from 'react-toastify';
 
-const DateTasksRow = ({ tasks, refetch, formattedDate }) => {
+const DateTasksRow = ({ tasks, refetch, formattedDate, user }) => {
   const { _id, taskDate, taskName, isCompleted } = tasks;
   console.log(taskDate, formattedDate);
 
   const updateTaskList = {
     taskName: taskName,
-    // user: email,
+    user: user?.email,
     // userName: displayName,
     taskDate: taskDate,
     // isCompleted: false,

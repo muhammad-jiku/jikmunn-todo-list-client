@@ -9,12 +9,13 @@ const CompletedTasksRow = ({
   setUpdateCompleteTask,
   setConfirmDelete,
   refetch,
+  user,
 }) => {
   const { _id, isCompleted, taskName, taskDate } = tasks;
 
   const updateTaskList = {
     taskName: taskName,
-    // user: email,
+    user: user?.email,
     // userName: displayName,
     taskDate: taskDate,
     // isCompleted: false,

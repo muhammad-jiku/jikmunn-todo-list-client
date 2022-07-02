@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import auth from '../../firebase.init';
 import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import CompletedTasksRow from './CompletedTasksRow';
 import UpdateCompletedTasks from './UpdateCompletedTasks/UpdateCompletedTasks';
@@ -9,18 +11,23 @@ const CompletedTasks = () => {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [updateCompleteTask, setUpdateCompleteTask] = useState(null);
 
+  const [user] = useAuthState(auth);
+
   const {
     data: completedTasks,
     isLoading,
     refetch,
-  } = useQuery('completedTasks', () =>
-    fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
-      },
-    }).then((res) => res.json())
+  } = useQuery(['completedTasks', user], () =>
+    fetch(
+      `https://jikmunn-todo-app.herokuapp.com/completedTasks?user=${user?.email}`,
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
+        },
+      }
+    ).then((res) => res.json())
   );
 
   if (isLoading) return;
@@ -52,6 +59,7 @@ const CompletedTasks = () => {
                     setUpdateCompleteTask={setUpdateCompleteTask}
                     setConfirmDelete={setConfirmDelete}
                     refetch={refetch}
+                    user={user}
                   />
                 ))}
             </tbody>
@@ -62,6 +70,7 @@ const CompletedTasks = () => {
             refetch={refetch}
             updateCompleteTask={updateCompleteTask}
             setUpdateCompleteTask={setUpdateCompleteTask}
+            user={user}
           />
         )}{' '}
         {confirmDelete && (

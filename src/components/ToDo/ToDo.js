@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import auth from '../../firebase.init';
 import DeleteTasks from '../DeleteTasks/DeleteTasks';
 import ToDoRow from './ToDoRow';
 import UpdateToDoTasks from './UpdateToDoTasks/UpdateToDoTasks';
@@ -8,12 +10,14 @@ const ToDo = () => {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [updateToDoTask, setUpdateToDoTask] = useState(null);
 
+  const [user] = useAuthState(auth);
+
   const {
     data: tasksLists,
     isLoading,
     refetch,
-  } = useQuery('tasksLists', () =>
-    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks`, {
+  } = useQuery(['tasksLists', user], () =>
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks?user=${user?.email}`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -50,6 +54,7 @@ const ToDo = () => {
                   setUpdateToDoTask={setUpdateToDoTask}
                   setConfirmDelete={setConfirmDelete}
                   refetch={refetch}
+                  user={user}
                 />
               ))}
           </tbody>
@@ -60,6 +65,7 @@ const ToDo = () => {
           refetch={refetch}
           updateToDoTask={updateToDoTask}
           setUpdateToDoTask={setUpdateToDoTask}
+          user={user}
         />
       )}{' '}
       {confirmDelete && (

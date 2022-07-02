@@ -1,18 +1,52 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const Header = () => {
+  const [user] = useAuthState(auth);
+
+  const signingOut = () => {
+    signOut(auth);
+    //  localStorage?.removeItem('accessToken');
+  };
+
   const menuItems = (
     <>
       <li>
-        <Link to="/completed-tasks">Completed Tasks</Link>
+        <Link to="/calendar">Calendar</Link>
       </li>
       <li>
         <Link to="/todo">To-Do</Link>
       </li>
       <li>
-        <Link to="/calendar">Calendar</Link>
+        <Link to="/completed-tasks">Completed Tasks</Link>
       </li>
+
+      {user ? (
+        <>
+          <li className="mr-2 font-bold">
+            <div class="avatar ">
+              <div class="w-12  rounded-full">
+                <img src={user?.photoURL} alt={user?.displayName} />
+              </div>
+            </div>
+          </li>
+          <li>
+            <button
+              className="btn btn-primary text-white my-4"
+              onClick={signingOut}
+            >
+              Sign out
+            </button>
+          </li>
+        </>
+      ) : (
+        <li>
+          <Link to="/signin">Sign In</Link>
+        </li>
+      )}
     </>
   );
   return (

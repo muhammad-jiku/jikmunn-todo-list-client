@@ -4,7 +4,12 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 
-const UpdateToDoTasks = ({ refetch, updateToDoTask, setUpdateToDoTask }) => {
+const UpdateToDoTasks = ({
+  refetch,
+  updateToDoTask,
+  setUpdateToDoTask,
+  user,
+}) => {
   const { _id, taskName, taskDate } = updateToDoTask;
 
   const [date, setDate] = useState(new Date());
@@ -29,7 +34,7 @@ const UpdateToDoTasks = ({ refetch, updateToDoTask, setUpdateToDoTask }) => {
 
     const updateTaskList = {
       taskName: taskName,
-      // user: email,
+      user: user?.email,
       // userName: displayName,
       taskDate: taskDate,
       // isCompleted: false,

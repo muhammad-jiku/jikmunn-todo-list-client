@@ -8,16 +8,47 @@ import Footer from './components/Shared/Footer/Footer';
 import Header from './components/Shared/Header/Header';
 import ToDo from './components/ToDo/ToDo';
 import { ToastContainer } from 'react-toastify';
+import GoogleSignIn from './components/Authentication/GoogleSignIn';
+import RequiredAuth from './components/Authentication/RequiredAuth';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/completed-tasks" element={<CompletedTasks />} />
-        <Route path="/todo" element={<ToDo />} />
-        <Route path="/calendar" element={<Calendar />} />
+        <Route
+          path="/"
+          element={
+            <RequiredAuth>
+              <Home />
+            </RequiredAuth>
+          }
+        />
+        <Route
+          path="/completed-tasks"
+          element={
+            <RequiredAuth>
+              <CompletedTasks />
+            </RequiredAuth>
+          }
+        />
+        <Route
+          path="/todo"
+          element={
+            <RequiredAuth>
+              <ToDo />
+            </RequiredAuth>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <RequiredAuth>
+              <Calendar />
+            </RequiredAuth>
+          }
+        />
+        <Route path="/signin" element={<GoogleSignIn />} />
       </Routes>
       <ToastContainer />
       <Footer />
