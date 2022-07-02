@@ -34,53 +34,59 @@ const CompletedTasks = () => {
 
   return (
     <div>
-      <div className="container mx-auto">
-        <h1 className="text-lg py-4">Your's completed tasks</h1>
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            {/* <head  */}
-            <thead>
-              <tr>
-                <th className="text-lg font-bold">#</th>
-                <th className="text-lg font-bold">Task Name</th>
-                <th className="text-lg font-bold">Task Date</th>
-                <th className="text-lg font-bold">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {completedTasks
-                ?.slice(0)
-                ?.reverse()
-                ?.map((tasks) => (
-                  <CompletedTasksRow
-                    key={tasks?._id}
-                    tasks={tasks}
-                    setUpdateCompleteTask={setUpdateCompleteTask}
-                    setConfirmDelete={setConfirmDelete}
-                    refetch={refetch}
-                    user={user}
-                  />
-                ))}
-            </tbody>
-          </table>
+      {completedTasks?.length === 0 ? (
+        <h1 className="text-lg text-red-500 text-center my-6">
+          No todo lists has completed yet!
+        </h1>
+      ) : (
+        <div className="container mx-auto">
+          <h1 className="text-lg py-4">Your's completed tasks</h1>
+          <div className="overflow-x-auto w-full">
+            <table className="table w-full">
+              {/* <head  */}
+              <thead>
+                <tr>
+                  <th className="text-lg font-bold">#</th>
+                  <th className="text-lg font-bold">Task Name</th>
+                  <th className="text-lg font-bold">Task Date</th>
+                  <th className="text-lg font-bold">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* row 1 */}
+                {completedTasks
+                  ?.slice(0)
+                  ?.reverse()
+                  ?.map((tasks) => (
+                    <CompletedTasksRow
+                      key={tasks?._id}
+                      tasks={tasks}
+                      setUpdateCompleteTask={setUpdateCompleteTask}
+                      setConfirmDelete={setConfirmDelete}
+                      refetch={refetch}
+                      user={user}
+                    />
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          {updateCompleteTask && (
+            <UpdateCompletedTasks
+              refetch={refetch}
+              updateCompleteTask={updateCompleteTask}
+              setUpdateCompleteTask={setUpdateCompleteTask}
+              user={user}
+            />
+          )}{' '}
+          {confirmDelete && (
+            <DeleteTasks
+              refetch={refetch}
+              confirmDelete={confirmDelete}
+              setConfirmDelete={setConfirmDelete}
+            />
+          )}
         </div>
-        {updateCompleteTask && (
-          <UpdateCompletedTasks
-            refetch={refetch}
-            updateCompleteTask={updateCompleteTask}
-            setUpdateCompleteTask={setUpdateCompleteTask}
-            user={user}
-          />
-        )}{' '}
-        {confirmDelete && (
-          <DeleteTasks
-            refetch={refetch}
-            confirmDelete={confirmDelete}
-            setConfirmDelete={setConfirmDelete}
-          />
-        )}
-      </div>
+      )}
     </div>
   );
 };

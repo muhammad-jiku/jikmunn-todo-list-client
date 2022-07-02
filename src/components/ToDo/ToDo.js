@@ -29,51 +29,62 @@ const ToDo = () => {
   if (isLoading) return;
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-lg py-4">Your's todo lists</h1>
-      <div className="overflow-x-auto w-full">
-        <table className="table w-full">
-          {/* <head  */}
-          <thead>
-            <tr>
-              <th className="text-lg font-bold">#</th>
-              <th className="text-lg font-bold">Task Name</th>
-              <th className="text-lg font-bold">Task Date</th>
-              <th className="text-lg font-bold">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-            {tasksLists
-              ?.slice(0)
-              ?.reverse()
-              ?.map((tasks) => (
-                <ToDoRow
-                  key={tasks?._id}
-                  tasks={tasks}
-                  setUpdateToDoTask={setUpdateToDoTask}
-                  setConfirmDelete={setConfirmDelete}
-                  refetch={refetch}
-                  user={user}
-                />
-              ))}
-          </tbody>
-        </table>
-      </div>
-      {updateToDoTask && (
-        <UpdateToDoTasks
-          refetch={refetch}
-          updateToDoTask={updateToDoTask}
-          setUpdateToDoTask={setUpdateToDoTask}
-          user={user}
-        />
-      )}{' '}
-      {confirmDelete && (
-        <DeleteTasks
-          refetch={refetch}
-          confirmDelete={confirmDelete}
-          setConfirmDelete={setConfirmDelete}
-        />
+    <div>
+      {tasksLists?.length === 0 ? (
+        <h1 className="text-lg text-red-500 text-center my-6">
+          No todo lists has added yet!
+        </h1>
+      ) : (
+        <div className="container mx-auto">
+          <h1 className="text-lg py-4">
+            {' '}
+            {user?.displayName ? user?.displayName + "'s" : '  '} to-do lists
+          </h1>
+          <div className="overflow-x-auto w-full">
+            <table className="table w-full">
+              {/* <head  */}
+              <thead>
+                <tr>
+                  <th className="text-lg font-bold">#</th>
+                  <th className="text-lg font-bold">Task Name</th>
+                  <th className="text-lg font-bold">Task Date</th>
+                  <th className="text-lg font-bold">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* row 1 */}
+                {tasksLists
+                  ?.slice(0)
+                  ?.reverse()
+                  ?.map((tasks) => (
+                    <ToDoRow
+                      key={tasks?._id}
+                      tasks={tasks}
+                      setUpdateToDoTask={setUpdateToDoTask}
+                      setConfirmDelete={setConfirmDelete}
+                      refetch={refetch}
+                      user={user}
+                    />
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          {updateToDoTask && (
+            <UpdateToDoTasks
+              refetch={refetch}
+              updateToDoTask={updateToDoTask}
+              setUpdateToDoTask={setUpdateToDoTask}
+              user={user}
+            />
+          )}{' '}
+          {confirmDelete && (
+            <DeleteTasks
+              refetch={refetch}
+              confirmDelete={confirmDelete}
+              setConfirmDelete={setConfirmDelete}
+            />
+          )}
+        </div>
       )}
     </div>
   );
