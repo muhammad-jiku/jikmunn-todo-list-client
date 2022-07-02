@@ -5,12 +5,22 @@ import { toast } from 'react-toastify';
 const DateTasksRow = ({ tasks, refetch, formattedDate }) => {
   const { _id, taskDate, taskName, isCompleted } = tasks;
   console.log(taskDate, formattedDate);
+
+  const updateTaskList = {
+    taskName: taskName,
+    // user: email,
+    // userName: displayName,
+    taskDate: taskDate,
+    // isCompleted: false,
+  };
+
   const handleComplete = () => {
     fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
+      body: JSON.stringify(updateTaskList),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -25,10 +35,11 @@ const DateTasksRow = ({ tasks, refetch, formattedDate }) => {
 
   const handleIsComplete = () => {
     fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
+      body: JSON.stringify(updateTaskList),
     })
       .then((res) => res.json())
       .then((data) => {

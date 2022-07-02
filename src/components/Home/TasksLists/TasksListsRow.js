@@ -1,29 +1,38 @@
 import React from 'react';
 // import { TiTick } from 'react-icons/ti';
-import { MdEdit } from 'react-icons/md';
-import { RiDeleteBin7Fill } from 'react-icons/ri';
+// import { MdEdit } from 'react-icons/md';
+// import { RiDeleteBin7Fill } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 const TasksListsRow = ({ tasks, refetch }) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
-  const handleComplete = () => {
-    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        if (data?.modifiedCount > 0) {
-          refetch();
-          toast.success(`You completed ${taskName} successfully!`);
-        }
-      })
-      .catch((err) => console.log(err));
+
+  const updateTaskList = {
+    taskName: taskName,
+    // user: email,
+    // userName: displayName,
+    taskDate: taskDate,
+    // isCompleted: false,
   };
+
+  // const handleComplete = () => {
+  //   fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       if (data?.modifiedCount > 0) {
+  //         refetch();
+  //         toast.success(`You completed ${taskName} successfully!`);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // const handleIsComplete = () => {
   //   fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
@@ -42,6 +51,25 @@ const TasksListsRow = ({ tasks, refetch }) => {
   //     })
   //     .catch((err) => console.log(err));
   // };
+
+  const handleComplete = () => {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(updateTaskList),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data?.modifiedCount > 0) {
+          refetch();
+          toast.success(`You completed ${taskName} successfully!`);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <tr>

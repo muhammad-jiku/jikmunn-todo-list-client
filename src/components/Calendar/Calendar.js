@@ -8,7 +8,7 @@ import DateCompletedTasks from './CalendarTasks/DateCompletedTasks';
 
 const Calendar = () => {
   const [date, setDate] = useState(new Date());
-  const [selectedTaskType, setSelectedTaskType] = useState('');
+  const [selectedTaskType, setSelectedTaskType] = useState('Todo');
   // date && format(date,'PP') is used for preventing 'date-fns' error of RangeError: Invalid time value
   // const formattedDate = date && format(date, 'PP');
   const formattedDate = format(date, 'PP');

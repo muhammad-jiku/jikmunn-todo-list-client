@@ -11,12 +11,40 @@ const CompletedTasksRow = ({
   refetch,
 }) => {
   const { _id, isCompleted, taskName, taskDate } = tasks;
+
+  const updateTaskList = {
+    taskName: taskName,
+    // user: email,
+    // userName: displayName,
+    taskDate: taskDate,
+    // isCompleted: false,
+  };
+
+  // const handleIsComplete = () => {
+  //   fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       if (data?.modifiedCount > 0) {
+  //         refetch();
+  //         toast.success(`You just rembered ${taskName} is not completed yet!!`);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
   const handleIsComplete = () => {
     fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
+      body: JSON.stringify(updateTaskList),
     })
       .then((res) => res.json())
       .then((data) => {

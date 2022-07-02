@@ -6,12 +6,39 @@ import { toast } from 'react-toastify';
 const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
   console.log(tasks);
   const { _id, isCompleted, taskName, taskDate } = tasks;
+
+  const updateTaskList = {
+    taskName: taskName,
+    // user: email,
+    // userName: displayName,
+    taskDate: taskDate,
+    // isCompleted: false,
+  };
+
+  // const handleComplete = () => {
+  //   fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // console.log(data);
+  //       if (data?.modifiedCount > 0) {
+  //         refetch();
+  //         toast.success(`You completed ${taskName} successfully!`);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
   const handleComplete = () => {
     fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
+      body: JSON.stringify(updateTaskList),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -23,7 +50,6 @@ const ToDoRow = ({ tasks, setUpdateToDoTask, setConfirmDelete, refetch }) => {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <tr>
       <th>
