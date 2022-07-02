@@ -8,13 +8,16 @@ const DateCompletedTasks = ({ formattedDate }) => {
     isLoading,
     refetch,
   } = useQuery(['completedTodoLists', formattedDate], () =>
-    fetch(`http://localhost:5000/completedTasks/lists?date=${formattedDate}`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
-      },
-    }).then((res) => res.json())
+    fetch(
+      `https://jikmunn-todo-app.herokuapp.com/completedTasks/lists?date=${formattedDate}`,
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
+        },
+      }
+    ).then((res) => res.json())
   );
 
   if (isLoading) return;

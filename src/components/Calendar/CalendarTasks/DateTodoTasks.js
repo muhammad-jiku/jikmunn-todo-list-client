@@ -8,13 +8,16 @@ const DateTodoTasks = ({ formattedDate }) => {
     isLoading,
     refetch,
   } = useQuery(['todoLists', formattedDate], () =>
-    fetch(`http://localhost:5000/tasks/lists?date=${formattedDate}`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
-      },
-    }).then((res) => res.json())
+    fetch(
+      `https://jikmunn-todo-app.herokuapp.com/tasks/lists?date=${formattedDate}`,
+      {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          // authorization: `Bearer ${localStorage?.getItem('accessToken')}`,
+        },
+      }
+    ).then((res) => res.json())
   );
 
   if (isLoading) return;

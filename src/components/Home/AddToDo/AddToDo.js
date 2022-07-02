@@ -33,7 +33,7 @@ const AddToDo = ({ refetch }) => {
       isCompleted: false,
     };
 
-    fetch('http://localhost:5000/tasks', {
+    fetch('https://jikmunn-todo-app.herokuapp.com/tasks', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

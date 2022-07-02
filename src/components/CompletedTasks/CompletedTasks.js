@@ -14,7 +14,7 @@ const CompletedTasks = () => {
     isLoading,
     refetch,
   } = useQuery('completedTasks', () =>
-    fetch(`http://localhost:5000/completedTasks`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',

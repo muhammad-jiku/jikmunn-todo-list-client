@@ -12,7 +12,7 @@ const CompletedTasksRow = ({
 }) => {
   const { _id, isCompleted, taskName, taskDate } = tasks;
   const handleIsComplete = () => {
-    fetch(`http://localhost:5000/completedTasks/${_id}`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

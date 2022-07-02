@@ -39,7 +39,7 @@ const UpdateCompletedTasks = ({
       // isCompleted: false,
     };
 
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',

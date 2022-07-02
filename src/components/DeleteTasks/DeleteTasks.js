@@ -6,7 +6,7 @@ const DeleteTasks = ({ refetch, confirmDelete, setConfirmDelete }) => {
 
   const handleDelete = (id) => {
     console.log(confirmDelete);
-    fetch(`http://localhost:5000/tasks/${id}`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',

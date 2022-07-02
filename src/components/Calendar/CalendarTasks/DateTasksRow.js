@@ -6,7 +6,7 @@ const DateTasksRow = ({ tasks, refetch, formattedDate }) => {
   const { _id, taskDate, taskName, isCompleted } = tasks;
   console.log(taskDate, formattedDate);
   const handleComplete = () => {
-    fetch(`http://localhost:5000/tasks/${_id}`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks/${_id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -24,7 +24,7 @@ const DateTasksRow = ({ tasks, refetch, formattedDate }) => {
   };
 
   const handleIsComplete = () => {
-    fetch(`http://localhost:5000/completedTasks/${_id}`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/completedTasks/${_id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

@@ -10,7 +10,7 @@ const Home = () => {
     isLoading,
     refetch,
   } = useQuery('tasksLists', () =>
-    fetch(`http://localhost:5000/tasks`, {
+    fetch(`https://jikmunn-todo-app.herokuapp.com/tasks`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
